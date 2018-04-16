@@ -17,10 +17,11 @@ function setup(){
     app.get('/:sub/:sort', (req, res) => {
         getReddit(req.params.sub,req.params.sort)
             .then((response)=>{ 
+                console.log(response.data.children[0]);
                 res.render('hello', {
                     sub: req.params.sub,
                     sort: req.params.sort,
-                    response: response
+                    response: response.data.children
                 })
             })
             .catch(err=> console.log(err))
@@ -57,11 +58,9 @@ function getReddit(sub,sort) {
             let redditData = ''
             dataStream.on('data', chunk => {
                 redditData += chunk
-                console.log(chunk);
             })
             dataStream.on('end', () => {
-                console.log(redditData)
-                resolve(redditData)
+                resolve(JSON.parse(redditData))
             })
         })
         .on("error", function (error) {

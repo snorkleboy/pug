@@ -3,10 +3,22 @@ html
     title Example Title
   body
     main
-      h1 sub
-      h1= sub
-      h1 sort
-      h2= sort
-      h3= response
-      p.alert Here's a body of text with the class 'alert'
-      .action divs are so common that you can just write the class!
+    div
+        h1 sub: 
+        h1= sub
+    div
+        h1 sort: 
+        h1= sort
+    div
+        for el in response
+            li
+                h1= el.data.title
+                label author
+                    h2= el.data.author
+                label score
+                    h2= el.data.score
+                label number of comments
+                    h2= el.data.num_comments
+                a(href=`${el.data.url}`)
+                    img(src=`${el.data.thumbnail}`)
+
